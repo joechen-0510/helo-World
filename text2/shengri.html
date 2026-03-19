@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>生日快乐祝福</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            color: #ff4081;
+            margin-bottom: 15px;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 0 10px;
+        }
+        
+        .birthday-message {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            color: #333;
+            padding: 0 10px;
+        }
+        
+        .cake-container {
+            position: relative;
+            margin: 20px auto;
+            width: 200px;
+            height: 150px;
+        }
+        
+        .cake {
+            position: relative;
+            width: 200px;
+            height: 100px;
+        }
+        
+        .cake-base {
+            position: absolute;
+            bottom: 0;
+            width: 180px;
+            height: 60px;
+            background: #f8c8dc;
+            border-radius: 10px 10px 0 0;
+            left: 10px;
+            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .cake-middle {
+            position: absolute;
+            bottom: 60px;
+            width: 150px;
+            height: 40px;
+            background: #ffb6c1;
+            border-radius: 10px 10px 0 0;
+            left: 25px;
+            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .cake-top {
+            position: absolute;
+            bottom: 100px;
+            width: 120px;
+            height: 30px;
+            background: #ff9eb5;
+            border-radius: 10px 10px 0 0;
+            left: 40px;
+            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .candle {
+            position: absolute;
+            bottom: 130px;
+            width: 8px;
+            height: 30px;
+            background: #fff;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        
+        .flame {
+            position: absolute;
+            bottom: 160px;
+            width: 12px;
+            height: 20px;
+            background: #ff9800;
+            border-radius: 50% 50% 20% 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flicker 0.5s infinite alternate;
+            box-shadow: 0 0 15px #ff9800;
+        }
+        
+        @keyframes flicker {
+            0% {
+                height: 20px;
+                background: #ff9800;
+                box-shadow: 0 0 15px #ff9800;
+            }
+            100% {
+                height: 25px;
+                background: #ff5722;
+                box-shadow: 0 0 20px #ff5722;
+            }
+        }
+        
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .gallery-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .gallery-img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            margin: 15px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .birthday-video {
+            width: 100%;
+            display: block;
+            border-radius: 15px;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            font-size: 0.9rem;
+        }
+        
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .button {
+            background: #ff4081;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            touch-action: manipulation;
+        }
+        
+        .button:active {
+            background: #e91e63;
+            transform: translateY(2px);
+            box-shadow: 0 2px 5px rgba(255, 64, 129, 0.4);
+        }
+        
+        .button-secondary {
+            background: #4CAF50;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        .button-secondary:active {
+            background: #388E3C;
+            box-shadow: 0 2px 5px rgba(76, 175, 80, 0.4);
+        }
+        
+        .petals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .petal {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff4081;
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+        
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            max-width: 100%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 101;
+            background: rgba(0,0,0,0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .close-modal:active {
+            color: #ff4081;
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .music-control {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 20;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            touch-action: manipulation;
+        }
+        
+        .music-control:active {
+            background: white;
+            transform: scale(0.95);
+        }
+        
+        .music-control i {
+            font-size: 20px;
+            color: #ff4081;
+        }
+        
+        .section-title {
+            margin: 20px 0 10px;
+            color: #ff4081;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .wishes-text {
+            text-align: left;
+            background: rgba(255, 182, 193, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        /* 针对小屏幕的优化 */
+        @media (max-width: 360px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .birthday-message {
+                font-size: 1rem;
+            }
+            
+            .cake-container {
+                width: 180px;
+                height: 135px;
+            }
+            
+            .cake {
+                width: 180px;
+                height: 90px;
+            }
+            
+            .cake-base {
+                width: 160px;
+                left: 10px;
+            }
+            
+            .cake-middle {
+                width: 135px;
+                left: 22.5px;
+            }
+            
+            .cake-top {
+                width: 110px;
+                left: 35px;
+            }
+            
+            .gallery-img {
+                width: 70px;
+                height: 70px;
+            }
+        }
+        
+        /* 横屏优化 */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .container {
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="petals" id="petals-container"></div>
+    <canvas id="confetti-canvas"></canvas>
+    
+    <div class="music-control" id="music-control">
+        <i class="fas fa-volume-up"></i>
+    </div>
+    
+    <div class="container">
+        <h1><i class="fas fa-birthday-cake"></i> 刘诗涵 生日快乐！</h1>
+        <div class="birthday-message">
+            <p>在这个特别的日子里，愿你的生活充满欢笑和喜悦！</p>
+            <p>愿你的每一个愿望都能实现，每一天都充满阳光！</p>
+        </div>
+        
+        <div class="cake-container">
+            <div class="cake">
+                <div class="cake-base"></div>
+                <div class="cake-middle"></div>
+                <div class="cake-top"></div>
+                <div class="candle"></div>
+                <div class="flame"></div>
+            </div>
+        </div>
+        
+        <div class="section-title">
+            <i class="fas fa-images"></i> 生日相册
+        </div>
+        <div class="image-gallery">
+            <img src="https://github.com/joechen-0510/helo-World/blob/main/u%3D845240491%2C3264572633%26fm%3D253%26app%3D138%26f%3DJPEG.jpg" alt="幸福铃兰" class="gallery-img">
+            <img src="https://github.com/joechen-0510/helo-World/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260319102453_74_1.jpg" alt="美照" class="gallery-img">
+            <img src="https://github.com/joechen-0510/helo-World/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260319102454_75_1.jpg" alt="美照" class="gallery-img">
+            <img src="https://github.com/joechen-0510/helo-World/blob/main/0.png" alt="幸福铃兰" class="gallery-img">
+        </div>
+        
+        <div class="section-title">
+            <i class="fas fa-video"></i> 生日祝福视频
+        </div>
+        <div class="video-container">
+            <video class="birthday-video" id="birthday-video" controls playsinline poster="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                <source src="https://github.com/joechen-0510/helo-World/blob/main/2bd06cd17ffac7d8e5d2efef2e68271d.mp4" type="video/mp4">
+                您的浏览器不支持视频播放。
+            </video>
+            <div class="video-overlay">
+                点击播放生日祝福视频
+            </div>
+        </div>
+        
+        <div class="section-title">
+            <i class="fas fa-gift"></i> 生日祝福
+        </div>
+        <div class="wishes-text">
+            <p>今天是你的特别日子，愿所有的快乐、所有的幸福、所有的温馨、所有的好运都围绕在你身边。生日快乐！</p>
+        </div>
+        
+        <div class="controls">
+            <button class="button" id="celebrate-btn">
+                <i class="fas fa-fireworks"></i> 庆祝一下！
+            </button>
+            <button class="button button-secondary" id="play-video-btn">
+                <i class="fas fa-play"></i> 播放视频
+            </button>
+            <button class="button" id="show-message-btn">
+                <i class="fas fa-envelope"></i> 查看祝福
+            </button>
+        </div>
+    </div>
+    
+    <div class="modal" id="image-modal">
+        <span class="close-modal" id="close-modal">&times;</span>
+        <img class="modal-content" id="modal-image">
+    </div>
+    
+    <audio id="birthday-music" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3" type="audio/mpeg">
+        您的浏览器不支持音频元素。
+    </audio>
+
+    <script>
+        // 创建花瓣效果
+        function createPetals() {
+            const petalsContainer = document.getElementById('petals-container');
+            const colors = ['#ff4081', '#e91e63', '#f8c8dc', '#ffb6c1', '#ff9eb5', '#4CAF50', '#2196F3'];
+            
+            // 根据屏幕大小调整花瓣数量
+            const petalCount = Math.min(30, Math.floor(window.innerWidth / 10));
+            
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                
+                // 随机属性
+                const size = Math.random() * 15 + 8;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 8 + 5;
+                const animationDelay = Math.random() * 5;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+                petal.style.left = `${left}%`;
+                petal.style.animationDuration = `${animationDuration}s`;
+                petal.style.animationDelay = `${animationDelay}s`;
+                petal.style.backgroundColor = color;
+                
+                // 随机形状
+                if (Math.random() > 0.5) {
+                    petal.style.borderRadius = '50%';
+                } else {
+                    petal.style.borderRadius = '50% 0 50% 50%';
+                }
+                
+                petalsContainer.appendChild(petal);
+            }
+        }
+        
+        // 创建礼花效果
+        function createConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // 设置canvas尺寸
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const confettiPieces = [];
+            const colors = ['#ff4081', '#e91e63', '#f8c8dc', '#ffb6c1', '#ff9eb5', '#ff9800', '#ff5722', '#4CAF50', '#2196F3', '#9C27B0'];
+            
+            // 创建礼花碎片
+            function createConfettiPiece(x, y) {
+                const shape = Math.random() > 0.5 ? 'circle' : 'rect';
+                return {
+                    x: x,
+                    y: y,
+                    size: Math.random() * 10 + 4,
+                    speed: Math.random() * 4 + 2,
+                    angle: Math.random() * 360,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotation: Math.random() * 360,
+                    rotationSpeed: Math.random() * 8 - 4,
+                    shape: shape
+                };
+            }
+            
+            // 绘制礼花
+            function drawConfetti() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                for (let i = 0; i < confettiPieces.length; i++) {
+                    const piece = confettiPieces[i];
+                    
+                    ctx.save();
+                    ctx.translate(piece.x, piece.y);
+                    ctx.rotate(piece.rotation * Math.PI / 180);
+                    
+                    ctx.fillStyle = piece.color;
+                    
+                    if (piece.shape === 'circle') {
+                        ctx.beginPath();
+                        ctx.arc(0, 0, piece.size/2, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else {
+                        ctx.fillRect(-piece.size/2, -piece.size/2, piece.size, piece.size);
+                    }
+                    
+                    ctx.restore();
+                    
+                    // 更新位置和旋转
+                    piece.y += piece.speed;
+                    piece.x += Math.sin(piece.angle * Math.PI / 180) * 2;
+                    piece.rotation += piece.rotationSpeed;
+                    
+                    // 如果礼花超出屏幕，移除它
+                    if (piece.y > canvas.height) {
+                        confettiPieces.splice(i, 1);
+                        i--;
+                    }
+                }
+                
+                requestAnimationFrame(drawConfetti);
+            }
+            
+            // 爆炸礼花
+            function explodeConfetti(x, y, count = 80) {
+                for (let i = 0; i < count; i++) {
+                    confettiPieces.push(createConfettiPiece(x, y));
+                }
+            }
+            
+            // 初始爆炸
+            setTimeout(() => {
+                explodeConfetti(canvas.width / 2, canvas.height / 2);
+            }, 500);
+            
+            // 开始绘制
+            drawConfetti();
+            
+            // 点击按钮触发礼花
+            document.getElementById('celebrate-btn').addEventListener('click', function() {
+                explodeConfetti(canvas.width / 2, canvas.height / 2, 100);
+                playBirthdayMusic();
+            });
+            
+            // 窗口大小改变时调整canvas尺寸
+            window.addEventListener('resize', function() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+            
+            return { explodeConfetti };
+        }
+        
+        // 图片点击放大功能
+        function setupImageGallery() {
+            const images = document.querySelectorAll('.gallery-img');
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-image');
+            const closeModal = document.getElementById('close-modal');
+            
+            images.forEach(img => {
+                img.addEventListener('click', function() {
+                    modal.style.display = 'flex';
+                    modalImg.src = this.src;
+                });
+            });
+            
+            closeModal.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // 添加触摸事件支持
+            modal.addEventListener('touchstart', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+        
+        // 视频控制功能
+        function setupVideoControls() {
+            const video = document.getElementById('birthday-video');
+            const playBtn = document.getElementById('play-video-btn');
+            const videoOverlay = document.querySelector('.video-overlay');
+            
+            playBtn.addEventListener('click', function() {
+                if (video.paused) {
+                    video.play();
+                    videoOverlay.style.display = 'none';
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i> 暂停视频';
+                } else {
+                    video.pause();
+                    playBtn.innerHTML = '<i class="fas fa-play"></i> 播放视频';
+                }
+            });
+            
+            video.addEventListener('play', function() {
+                videoOverlay.style.display = 'none';
+                playBtn.innerHTML = '<i class="fas fa-pause"></i> 暂停视频';
+            });
+            
+            video.addEventListener('pause', function() {
+                playBtn.innerHTML = '<i class="fas fa-play"></i> 播放视频';
+            });
+            
+            video.addEventListener('ended', function() {
+                videoOverlay.style.display = 'block';
+                playBtn.innerHTML = '<i class="fas fa-play"></i> 播放视频';
+            });
+        }
+        
+        // 生日音乐控制
+        function setupMusicControls() {
+            const music = document.getElementById('birthday-music');
+            const musicControl = document.getElementById('music-control');
+            const musicIcon = musicControl.querySelector('i');
+            
+            let musicPlaying = false;
+            
+            musicControl.addEventListener('click', function() {
+                if (musicPlaying) {
+                    music.pause();
+                    musicIcon.className = 'fas fa-volume-mute';
+                    musicPlaying = false;
+                } else {
+                    music.play().catch(e => {
+                        console.log("自动播放被阻止，需要用户交互");
+                    });
+                    musicIcon.className = 'fas fa-volume-up';
+                    musicPlaying = true;
+                }
+            });
+            
+            // 点击庆祝按钮时自动播放音乐
+            function playBirthdayMusic() {
+                if (!musicPlaying) {
+                    music.play().then(() => {
+                        musicPlaying = true;
+                        musicIcon.className = 'fas fa-volume-up';
+                    }).catch(e => {
+                        console.log("音乐播放被阻止");
+                    });
+                }
+            }
+            
+            return { playBirthdayMusic };
+        }
+        
+        // 祝福消息功能
+        function setupMessageButton() {
+            const messageBtn = document.getElementById('show-message-btn');
+            
+            messageBtn.addEventListener('click', function() {
+                const messages = [
+                    "愿你生命中的每一个愿望都能实现！",
+                    "愿你的每一天都充满阳光和欢笑！",
+                    "祝你生日快乐，健康幸福永相伴！",
+                    "愿你的未来比过去更加美好！",
+                    "生日快乐！愿你的人生旅程充满惊喜！"
+                ];
+                
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                alert(randomMessage);
+            });
+        }
+        
+        // 初始化
+        window.onload = function() {
+            createPetals();
+            const confetti = createConfetti();
+            setupImageGallery();
+            setupVideoControls();
+            const musicControls = setupMusicControls();
+            setupMessageButton();
+            
+            // 使playBirthdayMusic函数在全局可访问
+            window.playBirthdayMusic = musicControls.playBirthdayMusic;
+            
+            // 自动播放音乐（需要用户交互，所以只在用户点击后尝试）
+            document.addEventListener('click', function initAudio() {
+                const music = document.getElementById('birthday-music');
+                music.volume = 0.5;
+                document.removeEventListener('click', initAudio);
+            });
+            
+            // 添加触摸事件支持
+            document.addEventListener('touchstart', function initAudioTouch() {
+                const music = document.getElementById('birthday-music');
+                music.volume = 0.5;
+                document.removeEventListener('touchstart', initAudioTouch);
+            });
+        };
+    </script>
+</body>
+</html>

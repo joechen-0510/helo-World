@@ -1,0 +1,22 @@
+#bt{
+	font-family:"微软雅黑";
+	font-size: 20px;
+	font-weight:bold;
+	color:#ff0000;
+}
+.cover-image {
+			display: block;
+			width: 300px;          
+			height: 300px;
+			argin: 20px auto;
+						}
+.audio-player {
+			display: block;          
+			margin: 30px auto;
+						}
+.video-player {
+			display: block;
+			margin: 30px auto;
+			width: 400px;
+			height: 200px;
+			}

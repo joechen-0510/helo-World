@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+	<title>电影排行榜动画效果</title>
+	<script src="js/jquery-3.4.1.min.js"></script>
+<style type="text/css">
+	* {padding: 0; margin: 0;}
+	.box{
+		width: 300px;
+		margin: 50px auto;
+		border: 1px solid #000;	}
+	.box>h1{
+		font-size: 20px;
+		line-height: 35px;
+		color: deeppink;
+		padding-left: 10px;
+		border-bottom: 1px dashed #ccc;	}
+	ul>li{
+		list-style: none;padding: 5px 10px;
+		border: 1px dashed #ccc;	}
+	ul>li:nth-child(-n+3) span{	background: deeppink;	}
+	ul>li>span{
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		background: #ccc;
+		text-align:center;
+		line-height: 20px;
+		margin-right: 10px;	}
+	.content{
+		overflow: hidden;
+		display: none;	}
+	.content>img{
+		width: 75px;
+		height: 105px;
+		float: left;	}
+	.content>p{
+		width: 180px;
+		height: 100px;
+		float: right;
+		font-size: 12px;
+		line-height: 20px;	}
+	.current .content{	display: block;	}
+</style>
+<script src="js/jquery-3.4.1.js"></script>
+</head>
+<body>
+	<div class="box">
+		<h1>电影排行榜</h1>
+		<ul>
+			<li><span>1</span>战狼Ⅱ
+				<div class="content">
+					<img src="img/电影排行榜/1. 战狼Ⅱ.jpg">
+					<p>
+						简介：该片讲述了脱下军装的冷锋被卷入了一场非洲国家的叛乱，本来能够安全撤离的他无法忘记军人的职责，重回战场展开救援的故事。
+					</p>
+				</div>
+			</li>
+			<li><span>2</span>你好，李焕英
+				<div class="content">
+					<img src="img/电影排行榜/2. 你好，李焕英.jpg">
+					<p>
+						讲述了刚考上大学的女孩贾晓玲在一天之内经历了人生的大起大落，在情绪失控中，意外穿越回到了八十年代，与20年前与正值青春的母亲李焕英相遇的故事。
+					</p>
+				</div>
+			</li>
+			<li><span>3</span>悬崖之上
+			<div class="content">
+					<img src="img/电影排行榜/3. 悬崖之上.jpg">
+					<p>
+						讲述了特工们在严峻考验下与敌人斗智斗勇，执行秘密行动的故事。
+					</p>
+				</div>
+			</li>
+			<li><span>4</span>扫黑·决战
+			<div class="content">
+					<img src="img/电影排行榜/4. 扫黑·决战.jpg">
+					<p>
+						讲述扫黑专案组组长宋一锐带领组员由一起征地拆迁案深入调查，突破层层阻挠，与幕后的黑恶势力展开激烈斗争的正义故事。
+					</p>
+				</div>
+			</li>
+			<li><span>5</span>我的姐姐
+			<div class="content">
+					<img src="img/电影排行榜/5. 我的姐姐.jpg">
+					<p>
+						该片讲述了失去父母的姐姐在面对追求个人独立生活还是抚养弟弟的问题上，发展的一段亲情故事。
+					</p>
+				</div>
+			</li>
+			<li><span>6</span>追虎擒龙
+			<div class="content">
+					<img src="img/电影排行榜/6. 追虎擒龙.jpg">
+					<p>
+						讲述了香港廉政公署ICAC成立之初，两位调查员同毒枭之首伍世豪及总华探长徐乐斗智斗勇的故事。
+					</p>
+				</div>
+			</li>
+			<li><span>7</span>老师好
+			<div class="content">
+					<img src="img/电影排行榜/7. 老师好.jpg">
+					<p>
+						该片以苗宛秋老师为核心人物，聚焦苗老师与学生们的“斗智斗勇”的有趣故事，再现二十世纪八十年代的师生百态及纯真情感。
+					</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+</body>
+<script>
+$(function() {
+	$("li").hover(function(){
+		$(this).addClass("current")
+	},function(){
+		$(this).removeClass("current")
+	})
+})
+</script>
+</html>
