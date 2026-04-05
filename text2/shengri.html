@@ -239,7 +239,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 100;
         }
         
         .petal {
@@ -265,7 +265,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 2;
+            z-index: 100;
         }
         
         .modal {
@@ -276,7 +276,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.9);
-            z-index: 100;
+            z-index: 200;
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -297,7 +297,7 @@
             font-size: 30px;
             cursor: pointer;
             transition: color 0.3s;
-            z-index: 101;
+            z-index: 201;
             background: rgba(0,0,0,0.5);
             width: 40px;
             height: 40px;
@@ -324,7 +324,7 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            z-index: 20;
+            z-index: 150;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             transition: all 0.3s;
             touch-action: manipulation;
@@ -358,6 +358,81 @@
             margin: 15px 0;
             font-size: 1rem;
             line-height: 1.5;
+        }
+        
+        /* 弹幕效果样式 */
+        .danmu-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 120;
+            overflow: hidden;
+        }
+        
+        .danmu {
+            position: absolute;
+            font-size: 40px;
+            font-weight: bold;
+            white-space: nowrap;
+            animation: danmuFly 3s linear forwards;
+            z-index: 121;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            background: linear-gradient(45deg, #ff4081, #ff9800, #4CAF50, #2196F3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.7));
+        }
+        
+        @keyframes danmuFly {
+            0% {
+                transform: translateX(100vw);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateX(calc(50vw - 50%));
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+        }
+        
+        .danmu-particle {
+            position: absolute;
+            font-size: 20px;
+            font-weight: bold;
+            opacity: 0;
+            animation: particleExplode 1.5s ease-out forwards;
+            z-index: 122;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+            background: linear-gradient(45deg, #ff4081, #ff9800);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        @keyframes particleExplode {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0.5);
+            }
         }
         
         /* 针对小屏幕的优化 */
@@ -403,6 +478,10 @@
                 width: 70px;
                 height: 70px;
             }
+            
+            .danmu {
+                font-size: 30px;
+            }
         }
         
         /* 横屏优化 */
@@ -417,6 +496,7 @@
 <body>
     <div class="petals" id="petals-container"></div>
     <canvas id="confetti-canvas"></canvas>
+    <div class="danmu-container" id="danmu-container"></div>
     
     <div class="music-control" id="music-control">
         <i class="fas fa-volume-up"></i>
@@ -626,6 +706,166 @@
             return { explodeConfetti };
         }
         
+        // 弹幕效果 - 自动触发
+        function setupDanmuEffect() {
+            const danmuContainer = document.getElementById('danmu-container');
+            const birthdayMessages = [
+                "刘诗涵生日快乐！",
+                "生日快乐刘诗涵！",
+                "祝刘诗涵生日快乐！",
+                "刘诗涵，生日快乐！",
+                "生日快乐，刘诗涵！",
+                "刘诗涵生日快乐！🎂",
+                "🎉刘诗涵生日快乐！🎉",
+                "🎂刘诗涵生日快乐！🎂",
+                "🎁刘诗涵生日快乐！🎁",
+                "✨刘诗涵生日快乐！✨"
+            ];
+            
+            let danmuInterval;
+            
+            // 创建弹幕
+            function createDanmu() {
+                // 创建弹幕元素
+                const danmu = document.createElement('div');
+                danmu.classList.add('danmu');
+                
+                // 随机选择祝福语
+                const message = birthdayMessages[Math.floor(Math.random() * birthdayMessages.length)];
+                danmu.textContent = message;
+                
+                // 随机垂直位置 (10% 到 90% 之间)
+                const top = Math.random() * 80 + 10;
+                danmu.style.top = `${top}%`;
+                
+                // 随机字体大小 (30px 到 50px)
+                const fontSize = Math.random() * 20 + 30;
+                danmu.style.fontSize = `${fontSize}px`;
+                
+                // 随机动画时长 (2.5秒到4秒)
+                const duration = Math.random() * 1.5 + 2.5;
+                danmu.style.animationDuration = `${duration}s`;
+                
+                // 添加到容器
+                danmuContainer.appendChild(danmu);
+                
+                // 监听动画事件，在弹幕到达中间时触发爆炸
+                const explosionTime = duration * 1000 * 0.5; // 动画一半时间触发爆炸
+                
+                setTimeout(() => {
+                    explodeDanmu(danmu);
+                }, explosionTime);
+                
+                // 动画结束后移除弹幕
+                danmu.addEventListener('animationend', function() {
+                    danmu.remove();
+                });
+            }
+            
+            // 爆炸弹幕
+            function explodeDanmu(danmu) {
+                const text = danmu.textContent;
+                const rect = danmu.getBoundingClientRect();
+                
+                // 隐藏原始弹幕
+                danmu.style.visibility = 'hidden';
+                
+                // 为每个字符创建粒子
+                for (let i = 0; i < text.length; i++) {
+                    const char = text[i];
+                    const particle = document.createElement('div');
+                    particle.classList.add('danmu-particle');
+                    particle.textContent = char;
+                    
+                    // 设置粒子位置
+                    particle.style.left = `${rect.left + (i * rect.width / text.length)}px`;
+                    particle.style.top = `${rect.top}px`;
+                    
+                    // 随机爆炸方向
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 80 + Math.random() * 150;
+                    const tx = Math.cos(angle) * distance;
+                    const ty = Math.sin(angle) * distance;
+                    
+                    particle.style.setProperty('--tx', `${tx}px`);
+                    particle.style.setProperty('--ty', `${ty}px`);
+                    
+                    // 随机延迟
+                    particle.style.animationDelay = `${Math.random() * 0.5}s`;
+                    
+                    // 添加到容器
+                    danmuContainer.appendChild(particle);
+                    
+                    // 动画结束后移除粒子
+                    particle.addEventListener('animationend', function() {
+                        particle.remove();
+                    });
+                }
+                
+                // 播放爆炸音效
+                playExplosionSound();
+            }
+            
+            // 播放爆炸音效
+            function playExplosionSound() {
+                // 创建一个简单的爆炸音效
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.5);
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            }
+            
+            // 开始自动发射弹幕
+            function startAutoDanmu() {
+                // 页面加载后延迟1秒开始
+                setTimeout(() => {
+                    // 初始发射3个弹幕
+                    for (let i = 0; i < 3; i++) {
+                        setTimeout(() => {
+                            createDanmu();
+                        }, i * 800);
+                    }
+                    
+                    // 设置定时器，每隔3-6秒发射一个弹幕
+                    danmuInterval = setInterval(() => {
+                        createDanmu();
+                    }, Math.random() * 3000 + 3000); // 3-6秒随机间隔
+                }, 1000);
+            }
+            
+            // 停止自动发射弹幕
+            function stopAutoDanmu() {
+                if (danmuInterval) {
+                    clearInterval(danmuInterval);
+                }
+            }
+            
+            // 页面加载时开始自动发射弹幕
+            startAutoDanmu();
+            
+            // 页面失去焦点时停止弹幕，获得焦点时重新开始
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    stopAutoDanmu();
+                } else {
+                    startAutoDanmu();
+                }
+            });
+            
+            return { startAutoDanmu, stopAutoDanmu };
+        }
+        
         // 图片点击放大功能
         function setupImageGallery() {
             const images = document.querySelectorAll('.gallery-img');
@@ -753,6 +993,7 @@
             setupVideoControls();
             const musicControls = setupMusicControls();
             setupMessageButton();
+            setupDanmuEffect();
             
             // 使playBirthdayMusic函数在全局可访问
             window.playBirthdayMusic = musicControls.playBirthdayMusic;

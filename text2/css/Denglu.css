@@ -1,0 +1,18 @@
+#outer{
+    width:960px;
+    height:600px;
+    background:url(../img/图片/Denglu.jpg);
+    margin:0 auto;
+}
+#login1{
+    width:480px;
+    height:320px;
+    background-image:url(../img/图片/Denglu2.jpg);
+    padding:3px;
+    margin:0 auto;
+    position:relative;
+    top:20%;
+}
+span{color:lightgray;}
+h2{color:yellow;}
+hr{width:430px;}

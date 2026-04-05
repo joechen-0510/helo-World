@@ -1,0 +1,18 @@
+table {
+    width: 800px;
+	height:560px;
+    border-collapse: collapse;
+	border: 2px solid midnightblue;
+}
+td, th {
+    border:1px solid midnightblue;
+	text-align: center;
+	font-weight: bold;
+	width: 200px;
+}
+.left-col {
+    background:linear-gradient(to right,#00ffff,#aaff7f);
+    font-weight:600;
+    width: 100px;
+}
+#mul{height:150px;}
