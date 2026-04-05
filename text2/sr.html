@@ -20,20 +20,20 @@
 
         .container{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:20px 15px;width:100%}
 
-        .title{font-size:36px;font-weight:bold;margin-bottom:10px;text-shadow:0 0 15px rgba(255,185,0,0.8);background:linear-gradient(90deg,#ffd700,#ff69b4,#87ceeb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:glow 2s infinite alternate}
+        .title{font-size:36px;font-weight:bold;margin-bottom:10px;text-shadow:0 0 15px rgba(255,185,0,0.8);background:linear-gradient(90deg,#ffd700,#ff69b4,#87ceeb);-webkit-background-clip:text;-webki[...]
         @media(max-width:400px){.title{font-size:28px;}}
         @keyframes glow{from{filter:drop-shadow(0 0 10px #ffd700)}to{filter:drop-shadow(0 0 25px #ff69b4)}}
 
         .subtitle{font-size:16px;margin-bottom:20px;opacity:.9}
 
         .countdown{display:flex;gap:10px;margin:20px 0;flex-wrap:wrap;justify-content:center}
-        .time-box{width:60px;height:60px;background:rgba(255,255,255,0.15);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2)}
+        .time-box{width:60px;height:60px;background:rgba(255,255,255,0.15);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(10px);bo[...]
         .time-num{font-size:20px;font-weight:bold}
         .time-text{font-size:11px;opacity:.8}
 
         .wish{max-width:100%;line-height:1.8;font-size:15px;margin:20px 0 25px;opacity:.95;padding:0 10px}
 
-        .play-btn{padding:14px 32px;background:linear-gradient(45deg,#ff5e62,#ff9966);border:none;border-radius:50px;color:#fff;font-size:16px;font-weight:bold;cursor:pointer;box-shadow:0 5px 15px rgba(255,94,98,0.4);transition:.3s;max-width:90%;white-space:nowrap}
+        .play-btn{padding:14px 32px;background:linear-gradient(45deg,#ff5e62,#ff9966);border:none;border-radius:50px;color:#fff;font-size:16px;font-weight:bold;cursor:pointer;box-shadow:0 5px 15px rgb[...]
         .play-btn:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(255,94,98,0.5)}
 
         .petal{position:fixed;pointer-events:none;z-index:3;animation:fall linear infinite;color:#ff91b9}
@@ -45,9 +45,9 @@
 <body>
 <canvas id="fireworksCanvas"></canvas>
 <div class="carousel">
-    <img src="https://github.com/joechen-0510/helo-World/raw/main/sr3.jpg" class="carousel-item">
-    <img src="https://github.com/joechen-0510/helo-World/raw/main/sr1.jpg" class="carousel-item">
-    <img src="https://github.com/joechen-0510/helo-World/raw/main/sr2.jpg" class="carousel-item">
+    <img src="https://cdn.jsdelivr.net/gh/joechen-0510/helo-World@main/sr3.jpg" class="carousel-item">
+    <img src="https://cdn.jsdelivr.net/gh/joechen-0510/helo-World@main/sr1.jpg" class="carousel-item">
+    <img src="https://cdn.jsdelivr.net/gh/joechen-0510/helo-World@main/sr2.jpg" class="carousel-item">
 </div>
 <div class="mask"></div>
 <div class="container">
@@ -65,7 +65,7 @@
 
 <script>
 window.onload = function(){
-    const audio = new Audio("https://github.com/joechen-0510/helo-World/raw/main/全部都是你.mp3");
+    const audio = new Audio("https://cdn.jsdelivr.net/gh/joechen-0510/helo-World@main/全部都是你.mp3");
     audio.volume=0.4;audio.loop=true;audio.play().catch(()=>{});
     createPetals();startCountdown();initFireworks();
 };
@@ -198,7 +198,7 @@ function fireworksLoop(){
 }
 
 function playVideo(){
-    window.open("https://github.com/joechen-0510/helo-World/raw/main/91b7ad48593b84d3c20c30f42b664329.mp4","_blank");
+    window.open("https://cdn.jsdelivr.net/gh/joechen-0510/helo-World@main/91b7ad48593b84d3c20c30f42b664329.mp4","_blank");
 }
 </script>
 </body>
